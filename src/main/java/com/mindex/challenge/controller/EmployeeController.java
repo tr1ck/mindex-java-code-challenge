@@ -24,6 +24,7 @@ public class EmployeeController {
 
     @GetMapping("/employee/{id}")
     public Employee read(@PathVariable String id) {
+        // Updated log message to better reflect where it occurs.
         LOG.debug("Received employee read request for id [{}]", id);
 
         return employeeService.read(id);
@@ -31,6 +32,7 @@ public class EmployeeController {
 
     @PutMapping("/employee/{id}")
     public Employee update(@PathVariable String id, @RequestBody Employee employee) {
+        // Updated log message to better reflect where it occurs.
         LOG.debug("Received employee update request for id [{}] and employee [{}]", id, employee);
 
         employee.setEmployeeId(id);

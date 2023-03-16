@@ -30,14 +30,19 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
         ReportingStructure reportingStructure = new ReportingStructure();
         reportingStructure.setEmployee(employee);
 
-        int numberOfReports = recursiveSomethingOrOther(employee, true);
+        // I thought about the best way to get the number of reports and decided to go with
+        // a recursive approach. Given that I didn't want to make the assumption that the
+        // reporting tree would only be so deep, my thinking was this should be able to continuously
+        // operate regardless of depth.
+        int numberOfReports = findNumberOfReports(employee, true);
 
         reportingStructure.setNumberOfReports(numberOfReports);
 
         return reportingStructure;
     }
 
-    private int recursiveSomethingOrOther(Employee employee, boolean isPopulated) {
+    // Recursive method
+    private int findNumberOfReports(Employee employee, boolean isPopulated) {
         int numberOfReports = 0;
 
         if(!isPopulated) {
@@ -47,7 +52,7 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
         if (!CollectionUtils.isEmpty(employee.getDirectReports())) {
             numberOfReports += employee.getDirectReports().size();
             for(Employee underling : employee.getDirectReports()) {
-                numberOfReports += recursiveSomethingOrOther(underling, false);
+                numberOfReports += findNumberOfReports(underling, false);
             }
         }
 
