@@ -17,11 +17,7 @@ public class CompensationController {
     @PostMapping("/compensation")
     public Compensation create(@RequestBody Compensation compensation) {
         LOG.debug("Received compensation create request for [{}]", compensation);
-        // I assume I need to be passing in an employeeID here. Otherwise
-        // I'm unsure how to actually query for the compensation.
-        // I could in theory add an employeeId field to Compensation, but
-        // that doesn't feel like it'd be the way to go.
-        // Perhaps Mongo can "figure it out" on it's own?
+
         return compensationService.create(compensation);
     }
 
